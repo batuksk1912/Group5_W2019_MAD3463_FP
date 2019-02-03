@@ -68,13 +68,22 @@ public abstract class Employee implements IPrintable {
         return 1000.00f;
     }
 
+    public String vehicleChecker() {
+        if (vehicle == null) {
+            return "No Vehicle";
+        } else if (vehicle instanceof Car) {
+            return "Car";
+        } else {
+            return "Motorcycle";
+        }
+    }
+
     @Override
     public String printMyData() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", vehicle=" + vehicle +
-                '}';
+        return "\n---Employee Records---\n\n" +
+                "Employer ID : " + id +
+                "\nName : " + name + '\n' +
+                "Year of Birth : " + age +
+                "\nVehicle Status : " + vehicleChecker();
     }
 }

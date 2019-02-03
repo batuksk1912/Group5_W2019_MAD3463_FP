@@ -25,4 +25,11 @@ public class Intern extends Employee {
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
     }
+
+    @Override
+    public String printMyData() {
+        return super.printMyData() + "\nEmployee Type : Intern" +
+                "\nSchool Name : " + schoolName +
+                "\nEarnings : " + calcEarnings();
+    }
 }

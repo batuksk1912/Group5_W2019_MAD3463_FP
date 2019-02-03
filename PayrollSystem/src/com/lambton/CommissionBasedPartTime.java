@@ -29,4 +29,11 @@ public class CommissionBasedPartTime extends PartTime {
     public Float commissionPercalcEarnings() {
         return ((getRate() * getHoursWorked()) + commission);
     }
+
+    @Override
+    public String printMyData() {
+        return super.printMyData() + "CommissionBasedPartTime{" +
+                "commission=" + commission +
+                '}';
+    }
 }

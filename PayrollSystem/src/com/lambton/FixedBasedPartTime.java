@@ -29,4 +29,11 @@ public class FixedBasedPartTime extends PartTime {
     public Float fixedAmountcalcEarnings() {
         return ((getRate() * getHoursWorked()) + fixedAmount);
     }
+
+    @Override
+    public String printMyData() {
+        return super.printMyData() + "FixedBasedPartTime{" +
+                "fixedAmount=" + fixedAmount +
+                '}';
+    }
 }

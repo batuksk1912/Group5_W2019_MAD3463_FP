@@ -42,4 +42,12 @@ public class FullTime extends Employee {
     public Float calcEarnings() {
         return salary + bonus;
     }
+
+    @Override
+    public String printMyData() {
+        return super.printMyData() + "\nEmployee Type : Full Time" +
+                "Salary : " + salary +
+                "Bonus : " + bonus +
+                '}';
+    }
 }

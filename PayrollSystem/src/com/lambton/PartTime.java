@@ -37,4 +37,12 @@ public abstract class PartTime extends Employee {
     public void setHoursWorked(Float hoursWorked) {
         this.hoursWorked = hoursWorked;
     }
+
+    @Override
+    public String printMyData() {
+        return super.printMyData() + "\nEmployee Type : Part Time" +
+                "rate=" + rate +
+                ", hoursWorked=" + hoursWorked +
+                '}';
+    }
 }
