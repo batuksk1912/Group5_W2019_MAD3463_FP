@@ -1,11 +1,52 @@
 package com.lambton;
 
+import sun.tools.tree.IfStatement;
+
 import java.util.Scanner;
 
 
 public class Main {
 
     private static Scanner i;
+
+    private static String hasVehicle = "DEFAULT";
+    private static String vehicleType;
+    private static String employeeId;
+    private static String employeeName;
+    private static String employeeAge;
+
+    private static String carMake;
+    private static String carColor;
+    private static String carYear;
+    private static String carPlate;
+    private static String carSeats;
+    private static String carDoors;
+
+    private static String motorcycleMake;
+    private static String motorcycleColor;
+    private static String motorcycleYear;
+    private static String motorcyclePlate;
+    private static String motorcycleSideCar;
+    private static String motorcycleBrakeType;
+
+    private static String commission;
+    private static String fixedAmount;
+
+    private static String schoolName;
+
+    private static String salary;
+    private static String bonus;
+
+    private static Intern intern;
+    private static FixedBasedPartTime fixedBasedPartTime;
+    private static CommissionBasedPartTime commissionBasedPartTime;
+    private static FullTime fullTime;
+
+    private static Car car;
+    private static Motorcycle motorcycle;
+
+    private static EmployeeRepositories employeeRepositories = EmployeeRepositories.getInstance();
+
 
     public static void showMainMenu() {
         clearScreen();
@@ -21,24 +62,25 @@ public class Main {
                 String e = getAnswer();
                 if (e.equals("Y") || e.equals("y")) {
                     i.close();
-                    //s.close();
                     System.exit(0);
                 }
                 break;
 
             case "1":
+                System.out.println("Please enter  the Employee's ID:");
+                employeeId = getAnswer();
                 System.out.println("Please enter  the Employee's NAME:");
-                String employeeName = getAnswer();
+                employeeName = getAnswer();
                 System.out.println("Please enter the Employee's AGE :");
-                String employeeAge = getAnswer();
+                employeeAge = getAnswer();
+                showHasVehicleMenu();
                 showEmployeeTypeMenu();
                 break;
 
             case "2":
                 System.out.println("List of current Employees:");
-                EmployeeRepositories emp = EmployeeRepositories.getInstance();
-                for (Employee em : emp.getAllEmployee()) {
-                    System.out.println(em.printMyData());
+                for (Employee employee : employeeRepositories.getAllEmployee()) {
+                    System.out.println(employee.printMyData());
                 }
                 getAnswer();
                 showMainMenu();
@@ -52,7 +94,6 @@ public class Main {
 
     private static String getAnswer() {
         String answer;
-        Scanner s = new Scanner(System.in);
         i = new Scanner(System.in);
         answer = i.nextLine();
         return answer.toLowerCase();
@@ -73,15 +114,28 @@ public class Main {
 
             case "2":
                 System.out.println("Please enter the Employee's SCHOOL NAME :");
-                String schoolName = getAnswer();
-                showHasVehicleMenu();
+                schoolName = getAnswer();
+                Integer employeeIntegerId = Integer.valueOf(employeeId);
+                Integer employeeIntegerAge = Integer.valueOf(employeeAge);
+                if (hasVehicle == null) {
+                    intern = new Intern(employeeIntegerId, employeeName, employeeIntegerAge, null, schoolName);
+                    intern.setAge(intern.calcBirthYear(employeeIntegerAge));
+                } else {
+                    if (vehicleType.equals("Car")) {
+                        intern = new Intern(employeeIntegerId, employeeName, employeeIntegerAge, car, schoolName);
+                        intern.setAge(intern.calcBirthYear(employeeIntegerAge));
+                    } else {
+                        intern = new Intern(employeeIntegerId, employeeName, employeeIntegerAge, motorcycle, schoolName);
+                        intern.setAge(intern.calcBirthYear(employeeIntegerAge));
+                    }
+                }
+                employeeRepositories.addOrder(intern);
                 break;
             case "3":
-                System.out.println("Please enter the Employee's SALLARY :");
-                String sallary = getAnswer();
+                System.out.println("Please enter the Employee's SALARY :");
+                salary = getAnswer();
                 System.out.println("Please enter the Employee's BONUS :");
-                String bonus = getAnswer();
-                showHasVehicleMenu();
+                bonus = getAnswer();
                 break;
             default:
                 System.out.println("Invalid option!");
@@ -100,14 +154,12 @@ public class Main {
         switch (option) {
             case "1":
                 System.out.println("Please enter the Employee's COMMISSION :");
-                String commission = getAnswer();
-                showHasVehicleMenu();
+                commission = getAnswer();
                 break;
 
             case "2":
                 System.out.println("Please enter the Employee's FIXED AMOUNT :");
-                String fixedAmount = getAnswer();
-                showHasVehicleMenu();
+                fixedAmount = getAnswer();
                 break;
             default:
                 System.out.println("Invalid option!");
@@ -127,9 +179,8 @@ public class Main {
             case "1":
                 showVehicleTypeMenu();
                 break;
-
             case "2":
-                showMainMenu();
+                hasVehicle = null;
                 break;
             default:
                 System.out.println("Invalid option!");
@@ -147,27 +198,40 @@ public class Main {
         String option = getAnswer();
         switch (option) {
             case "1":
+                vehicleType = "Car";
                 System.out.println("Please enter the car's MAKE :");
-                String carMake = getAnswer();
+                carMake = getAnswer();
                 System.out.println("Please enter the car's COLOR :");
-                String carcColor = getAnswer();
+                carColor = getAnswer();
                 System.out.println("Please enter the car's YEAR :");
-                String carYear = getAnswer();
+                carYear = getAnswer();
                 System.out.println("Please enter the car's PLATE :");
-                String carPlate = getAnswer();
-                showMainMenu();
+                carPlate = getAnswer();
+                System.out.println("Please enter the car's SEAT NUMBER :");
+                carSeats = getAnswer();
+                System.out.println("Please enter the car's DOOR NUMBER :");
+                carDoors = getAnswer();
+                Integer carYearInteger = Integer.valueOf(carYear);
+                Integer carSeatsInteger = Integer.valueOf(carSeats);
+                Integer carDoorsInteger = Integer.valueOf(carDoors);
+                car = new Car(carMake, carPlate, carYearInteger, Car.Color.valueOf(carColor.toUpperCase()), carSeatsInteger, carDoorsInteger);
                 break;
-
             case "2":
+                vehicleType = "Motorcycle";
                 System.out.println("Please enter the motorcycle's MAKE :");
-                String motorcycleMake = getAnswer();
+                motorcycleMake = getAnswer();
                 System.out.println("Please enter the motorcycle's COLOR :");
-                String motorcycleColor = getAnswer();
+                motorcycleColor = getAnswer();
                 System.out.println("Please enter the motorcycle's YEAR :");
-                String motorcycleYear = getAnswer();
+                motorcycleYear = getAnswer();
                 System.out.println("Please enter the motorcycle's PLATE :");
-                String motorcyclePlate = getAnswer();
-                showMainMenu();
+                motorcyclePlate = getAnswer();
+                System.out.println("Please enter the motorcycle's SIDE CAR INFORMATION :");
+                motorcycleSideCar = getAnswer();
+                System.out.println("Please enter the motorcycle's BREAK TYPE :");
+                motorcycleBrakeType = getAnswer();
+                Integer motorcycleYearInteger = Integer.valueOf(motorcycleYear);
+                motorcycle = new Motorcycle(motorcycleMake, motorcyclePlate, motorcycleYearInteger, Motorcycle.Color.valueOf(motorcycleColor.toUpperCase()), motorcycleSideCar, motorcycleBrakeType);
                 break;
             default:
                 System.out.println("Invalid option!");

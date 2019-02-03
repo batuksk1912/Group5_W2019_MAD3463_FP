@@ -7,9 +7,9 @@ public abstract class Vehicle implements IPrintable {
     private Integer year;
     private Color color;
 
-    public enum Color {Default, Black, White, Red, Blue, Green, Gray}
-
-    ;
+    public enum Color {
+        Default, BLACK, WHITE, BLUE, RED, GREEN, GRAY;
+    }
 
     public Vehicle() {
         this.make = null;
@@ -66,11 +66,10 @@ public abstract class Vehicle implements IPrintable {
 
     @Override
     public String printMyData() {
-        return "Vehicle{" +
-                "make='" + make + '\'' +
-                ", plate='" + plate + '\'' +
-                ", year=" + year +
-                ", color=" + color +
-                '}';
+        return "Vehicle Information" +
+                "\nMake : " + make +
+                "\nPlate : " + plate +
+                "\nYear : " + year +
+                "\nColor : " + color;
     }
 }

@@ -24,7 +24,7 @@ public class EmployeeRepositories {
 
     public Employee getEmployeeById(Integer employeeId) {
         for (Employee e : arr) {
-            if (e.getId() == employeeId) {
+            if (e.getId().equals(employeeId)) {
                 return e;
             }
         }
@@ -35,9 +35,9 @@ public class EmployeeRepositories {
         arr.remove(e);
     }
 
-    public void removeOrder(Integer employeeId) {
+    public void removeOrderById(Integer employeeId) {
         for (Employee e : arr) {
-            if (e.getId() == employeeId) {
+            if (e.getId().equals(employeeId)) {
                 arr.remove(e);
             }
         }

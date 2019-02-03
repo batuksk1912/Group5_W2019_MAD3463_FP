@@ -32,8 +32,7 @@ public class FixedBasedPartTime extends PartTime {
 
     @Override
     public String printMyData() {
-        return super.printMyData() + "FixedBasedPartTime{" +
-                "fixedAmount=" + fixedAmount +
-                '}';
+        return super.printMyData() + "\nFixed Based Part Time " +
+                "Fixed Amount : " + fixedAmount;
     }
 }
