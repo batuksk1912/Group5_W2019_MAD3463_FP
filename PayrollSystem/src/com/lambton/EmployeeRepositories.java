@@ -46,4 +46,18 @@ public class EmployeeRepositories {
     public ArrayList<Employee> getAllEmployee() {
         return arr;
     }
+
+    public Float getAllEarnings() {
+        Float totalEarnings = 0.0f;
+        for (Employee e : arr) {
+            if (!(e instanceof CommissionBasedPartTime) && !(e instanceof FixedBasedPartTime)) {
+                totalEarnings = totalEarnings + e.calcEarnings();
+            } else if (e instanceof CommissionBasedPartTime) {
+                totalEarnings = totalEarnings + ((CommissionBasedPartTime) e).commissionPercalcEarnings();
+            } else {
+                totalEarnings = totalEarnings + ((FixedBasedPartTime) e).fixedAmountcalcEarnings();
+            }
+        }
+        return totalEarnings;
+    }
 }

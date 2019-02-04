@@ -1,9 +1,5 @@
 package com.lambton;
-
-import sun.tools.tree.IfStatement;
-
 import java.util.Scanner;
-
 
 public class Main {
 
@@ -51,7 +47,7 @@ public class Main {
 
 
     public static void showMainMenu() {
-        //clearScreen();
+        clearScreen();
         System.out.println("Welcome to Payroll System. Please choose an option below:");
         System.out.println("1. Add a new Employee");
         System.out.println("2. Print current Employees list");
@@ -84,6 +80,7 @@ public class Main {
                 for (Employee employee : employeeRepositories.getAllEmployee()) {
                     System.out.println(employee.printMyData());
                 }
+                System.out.println("\n\n\nTotal Earnings : " + employeeRepositories.getAllEarnings());
                 getAnswer();
                 showMainMenu();
                 break;
@@ -175,18 +172,18 @@ public class Main {
             case "1":
                 System.out.println("Please enter the Employee's COMMISSION :");
                 commission = getAnswer();
-                Integer employeeIntegerId = Integer.valueOf(employeeId);
-                Integer employeeIntegerAge = Integer.valueOf(employeeAge);
-                Float commissionFloat = Float.valueOf(commission);
+                Float commissionRate = Float.valueOf(commission);
+                Float totalCommission = ((Float.valueOf(rate) * Float.valueOf(hoursWorked)) * commissionRate) / 100.00f;
+
                 if (hasVehicle == null) {
-                    commissionBasedPartTime = new CommissionBasedPartTime(employeeIntegerId, employeeName, employeeIntegerAge, null, Float.valueOf(rate), Float.valueOf(hoursWorked), commissionFloat);
+                    commissionBasedPartTime = new CommissionBasedPartTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), null, Float.valueOf(rate), Float.valueOf(hoursWorked), totalCommission);
                     commissionBasedPartTime.setAge(commissionBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
                 } else {
                     if (vehicleType.equals("Car")) {
-                        commissionBasedPartTime = new CommissionBasedPartTime(employeeIntegerId, employeeName, employeeIntegerAge, car, Float.valueOf(rate), Float.valueOf(hoursWorked), commissionFloat);
+                        commissionBasedPartTime = new CommissionBasedPartTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), car, Float.valueOf(rate), Float.valueOf(hoursWorked), totalCommission);
                         commissionBasedPartTime.setAge(commissionBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
                     } else {
-                        commissionBasedPartTime = new CommissionBasedPartTime(employeeIntegerId, employeeName, employeeIntegerAge, motorcycle, Float.valueOf(rate), Float.valueOf(hoursWorked), commissionFloat);
+                        commissionBasedPartTime = new CommissionBasedPartTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), motorcycle, Float.valueOf(rate), Float.valueOf(hoursWorked), totalCommission);
                         commissionBasedPartTime.setAge(commissionBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
                     }
                 }
