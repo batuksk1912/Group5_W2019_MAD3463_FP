@@ -1,4 +1,5 @@
 package com.lambton;
+
 import java.util.Scanner;
 
 public class Main {
@@ -53,24 +54,32 @@ public class Main {
         System.out.println("2. Print current Employees list");
         System.out.println("Q. Quit");
         System.out.println("Please enter your choice :");
-        String option = getAnswer();
+        String option = getAnswer("String");
         switch (option) {
             case "q":
                 System.out.println("Do you wanna exit ? (Y/N)");
-                String e = getAnswer();
-                if (e.equals("Y") || e.equals("y")) {
+                String exit = getAnswer("String");
+                if (exit.equals("Y") || exit.equals("y")) {
                     i.close();
                     System.exit(0);
                 }
                 break;
 
             case "1":
-                System.out.println("Please enter  the Employee's ID:");
-                employeeId = getAnswer();
+
+                try {
+                    System.out.println("Please enter  the Employee's ID:");
+                    employeeId = getAnswer("Integer");
+                } catch (Exception e) {
+                    System.out.println("Error!");
+                    i.reset();
+                }
+
+
                 System.out.println("Please enter  the Employee's NAME:");
-                employeeName = getAnswer();
+                employeeName = getAnswer("String");
                 System.out.println("Please enter the Employee's AGE :");
-                employeeAge = getAnswer();
+                employeeAge = getAnswer("Integer");
                 showHasVehicleMenu();
                 showEmployeeTypeMenu();
                 break;
@@ -81,7 +90,7 @@ public class Main {
                     System.out.println(employee.printMyData());
                 }
                 System.out.println("\n\n\nTotal Earnings : " + employeeRepositories.getAllEarnings());
-                getAnswer();
+                getAnswer("String");
                 showMainMenu();
                 break;
             default:
@@ -91,11 +100,39 @@ public class Main {
         }
     }
 
-    private static String getAnswer() {
-        String answer;
+    private static String getAnswer(String dataType) {
+        String answer = null;
+        Integer answerInt = null;
+        Float answerFloat = null;
         i = new Scanner(System.in);
-        answer = i.nextLine();
-        return answer.toLowerCase();
+
+        boolean bError = true;
+        do {
+            if (dataType == "Integer") {
+                try {
+                    answerInt = Integer.parseInt(i.nextLine());
+                    answer = answerInt.toString();
+                    bError = false;
+                } catch (Exception e) {
+                    System.err.println("Error! Please enter an " + dataType + "!");
+                    i.reset();
+                }
+            } else if (dataType == "Float") {
+                try {
+                    answerFloat = Float.parseFloat(i.nextLine());
+                    answer = answerFloat.toString();
+                    bError = false;
+                } catch (Exception e) {
+                    System.err.println("Error! Please enter an " + dataType + "!");
+                    i.reset();
+                }
+            } else if (dataType == "String") {
+                answer = i.nextLine();
+                answer = answer.toLowerCase();
+                bError = false;
+            }
+        } while (bError);
+        return answer;
     }
 
     @SuppressWarnings("Duplicates")
@@ -106,18 +143,18 @@ public class Main {
         System.out.println("2. Intern");
         System.out.println("3. Full-time");
         System.out.println("Please enter your choice :");
-        String option = getAnswer();
+        String option = getAnswer("Integer");
         switch (option) {
             case "1":
                 System.out.println("Please enter the Employee's RATE :");
-                rate = getAnswer();
+                rate = getAnswer("Float");
                 System.out.println("Please enter the Employee's HOURS WORKED :");
-                hoursWorked = getAnswer();
+                hoursWorked = getAnswer("Float");
                 showPartTimeTypeMenu();
                 break;
             case "2":
                 System.out.println("Please enter the Employee's SCHOOL NAME :");
-                schoolName = getAnswer();
+                schoolName = getAnswer("String");
                 Integer employeeIntegerId = Integer.valueOf(employeeId);
                 Integer employeeIntegerAge = Integer.valueOf(employeeAge);
                 if (hasVehicle == null) {
@@ -136,9 +173,9 @@ public class Main {
                 break;
             case "3":
                 System.out.println("Please enter the Employee's SALARY :");
-                salary = getAnswer();
+                salary = getAnswer("String");
                 System.out.println("Please enter the Employee's BONUS :");
-                bonus = getAnswer();
+                bonus = getAnswer("String");
                 if (hasVehicle == null) {
                     fullTime = new FullTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), null, Float.valueOf(salary), Float.valueOf(bonus));
                     fullTime.setAge(fullTime.calcBirthYear(Integer.valueOf(employeeAge)));
@@ -167,11 +204,11 @@ public class Main {
         System.out.println("1. Commissioned based");
         System.out.println("2. Fixed Based");
         System.out.println("Please enter your choice :");
-        String option = getAnswer();
+        String option = getAnswer("Integer");
         switch (option) {
             case "1":
                 System.out.println("Please enter the Employee's COMMISSION :");
-                commission = getAnswer();
+                commission = getAnswer("Float");
                 Float commissionRate = Float.valueOf(commission);
                 Float totalCommission = ((Float.valueOf(rate) * Float.valueOf(hoursWorked)) * commissionRate) / 100.00f;
 
@@ -191,7 +228,7 @@ public class Main {
                 break;
             case "2":
                 System.out.println("Please enter the Employee's FIXED AMOUNT :");
-                fixedAmount = getAnswer();
+                fixedAmount = getAnswer("Float");
                 if (hasVehicle == null) {
                     fixedBasedPartTime = new FixedBasedPartTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), null, Float.valueOf(rate), Float.valueOf(hoursWorked), Float.valueOf(fixedAmount));
                     fixedBasedPartTime.setAge(fixedBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
@@ -219,7 +256,7 @@ public class Main {
         System.out.println("1. Yes");
         System.out.println("2. No");
         System.out.println("Please enter your choice :");
-        String option = getAnswer();
+        String option = getAnswer("Integer");
         switch (option) {
             case "1":
                 showVehicleTypeMenu();
@@ -240,22 +277,22 @@ public class Main {
         System.out.println("1. Car");
         System.out.println("2. Motorcycle");
         System.out.println("Please enter your choice :");
-        String option = getAnswer();
+        String option = getAnswer("Integer");
         switch (option) {
             case "1":
                 vehicleType = "Car";
                 System.out.println("Please enter the car's MAKE :");
-                carMake = getAnswer();
+                carMake = getAnswer("String");
                 System.out.println("Please enter the car's COLOR :");
-                carColor = getAnswer();
+                carColor = getAnswer("String");
                 System.out.println("Please enter the car's YEAR :");
-                carYear = getAnswer();
+                carYear = getAnswer("Integer");
                 System.out.println("Please enter the car's PLATE :");
-                carPlate = getAnswer();
+                carPlate = getAnswer("String");
                 System.out.println("Please enter the car's SEAT NUMBER :");
-                carSeats = getAnswer();
+                carSeats = getAnswer("Integer");
                 System.out.println("Please enter the car's DOOR NUMBER :");
-                carDoors = getAnswer();
+                carDoors = getAnswer("Integer");
                 Integer carYearInteger = Integer.valueOf(carYear);
                 Integer carSeatsInteger = Integer.valueOf(carSeats);
                 Integer carDoorsInteger = Integer.valueOf(carDoors);
@@ -264,17 +301,17 @@ public class Main {
             case "2":
                 vehicleType = "Motorcycle";
                 System.out.println("Please enter the motorcycle's MAKE :");
-                motorcycleMake = getAnswer();
+                motorcycleMake = getAnswer("String");
                 System.out.println("Please enter the motorcycle's COLOR :");
-                motorcycleColor = getAnswer();
+                motorcycleColor = getAnswer("String");
                 System.out.println("Please enter the motorcycle's YEAR :");
-                motorcycleYear = getAnswer();
+                motorcycleYear = getAnswer("Integer");
                 System.out.println("Please enter the motorcycle's PLATE :");
-                motorcyclePlate = getAnswer();
+                motorcyclePlate = getAnswer("String");
                 System.out.println("Please enter the motorcycle's SIDE CAR INFORMATION :");
-                motorcycleSideCar = getAnswer();
+                motorcycleSideCar = getAnswer("String");
                 System.out.println("Please enter the motorcycle's BREAK TYPE :");
-                motorcycleBrakeType = getAnswer();
+                motorcycleBrakeType = getAnswer("String");
                 Integer motorcycleYearInteger = Integer.valueOf(motorcycleYear);
                 motorcycle = new Motorcycle(motorcycleMake, motorcyclePlate, motorcycleYearInteger, Motorcycle.Color.valueOf(motorcycleColor.toUpperCase()), motorcycleSideCar, motorcycleBrakeType);
                 break;
