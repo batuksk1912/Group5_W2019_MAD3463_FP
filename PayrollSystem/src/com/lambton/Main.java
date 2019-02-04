@@ -24,12 +24,15 @@ public class Main {
     private static Motorcycle motorcycle;
 
     private static EmployeeRepositories employeeRepositories = EmployeeRepositories.getInstance();
+    private static Employee employee;
 
     public static void showMainMenu() {
         clearScreen();
         System.out.println("Welcome to Payroll System. Please choose an option below:");
         System.out.println("1. Add a new Employee");
         System.out.println("2. Print current Employees list");
+        System.out.println("3. Print Employee by ID");
+        System.out.println("4. Delete Employee by ID");
         System.out.println("Q. Quit");
         System.out.println("Please enter your choice :");
         String option = getAnswer("String");
@@ -52,7 +55,7 @@ public class Main {
                     System.out.println("Error!");
                     i.reset();
                 }
-                System.out.println("Please enter  the Employee's NAME:");
+                System.out.println("Please enter the Employee's NAME:");
                 employeeName = getAnswer("String");
                 System.out.println("Please enter the Employee's AGE :");
                 employeeAge = getAnswer("Integer");
@@ -68,6 +71,31 @@ public class Main {
                 System.out.println("\n\nTotal Earnings : " + employeeRepositories.getAllEarnings());
                 getAnswer("String");
                 showMainMenu();
+                break;
+            case "3":
+                System.out.println("Please enter the Employee's ID:");
+                String showId = getAnswer("Integer");
+                employee = employeeRepositories.getEmployeeById(Integer.valueOf(showId));
+                if (employee != null) {
+                    System.out.println(employee.printMyData());
+                    getAnswer("String");
+                } else {
+                    System.out.println("No Record found.");
+                    getAnswer("String");
+                }
+                break;
+            case "4":
+                System.out.println("Please enter the Employee's ID:");
+                String deleteId = getAnswer("Integer");
+                employee = employeeRepositories.getEmployeeById(Integer.valueOf(deleteId));
+                if (employee != null) {
+                    employeeRepositories.removeEmployeeById(Integer.valueOf(deleteId));
+                    System.out.println("Employee record deleted successfully.");
+                    getAnswer("String");
+                } else {
+                    System.out.println("No Record found.");
+                    getAnswer("String");
+                }
                 break;
             default:
                 System.out.println("Invalid option!");
@@ -143,7 +171,7 @@ public class Main {
                         intern.setAge(intern.calcBirthYear(Integer.valueOf(employeeAge)));
                     }
                 }
-                employeeRepositories.addOrder(intern);
+                employeeRepositories.addRecord(intern);
                 break;
             case "3":
                 System.out.println("Please enter the Employee's SALARY :");
@@ -162,7 +190,7 @@ public class Main {
                         fullTime.setAge(fullTime.calcBirthYear(Integer.valueOf(employeeAge)));
                     }
                 }
-                employeeRepositories.addOrder(fullTime);
+                employeeRepositories.addRecord(fullTime);
                 break;
             default:
                 System.out.println("Invalid option!");
@@ -197,7 +225,7 @@ public class Main {
                         commissionBasedPartTime.setAge(commissionBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
                     }
                 }
-                employeeRepositories.addOrder(commissionBasedPartTime);
+                employeeRepositories.addRecord(commissionBasedPartTime);
                 break;
             case "2":
                 System.out.println("Please enter the Employee's FIXED AMOUNT :");
@@ -214,7 +242,7 @@ public class Main {
                         fixedBasedPartTime.setAge(fixedBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
                     }
                 }
-                employeeRepositories.addOrder(fixedBasedPartTime);
+                employeeRepositories.addRecord(fixedBasedPartTime);
                 break;
             default:
                 System.out.println("Invalid option!");
@@ -298,13 +326,12 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
+        try {
         while (true) {
-            try {
             showMainMenu();
-            } catch (Exception e) {
-                System.out.println("Something went wrong!");
-            }
+        }
+        } catch (Exception e) {
+            System.out.println("Something went wrong!");
         }
         /*
         Employee emp = e.getEmployeeById(1);
