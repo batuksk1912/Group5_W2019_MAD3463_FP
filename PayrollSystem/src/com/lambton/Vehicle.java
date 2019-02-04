@@ -8,14 +8,14 @@ public abstract class Vehicle implements IPrintable {
     private Color color;
 
     public enum Color {
-        Default, BLACK, WHITE, BLUE, RED, GREEN, GRAY;
+        BLACK, WHITE, BLUE, RED, GREEN, GRAY
     }
 
     public Vehicle() {
         this.make = null;
         this.plate = null;
         this.year = 0;
-        this.color = Color.Default;
+        this.color = Color.BLACK;
     }
 
     public Vehicle(String make, String plate, Integer year, Color color) {

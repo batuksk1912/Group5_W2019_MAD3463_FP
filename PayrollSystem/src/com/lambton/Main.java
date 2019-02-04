@@ -46,18 +46,9 @@ public class Main {
                     System.exit(0);
                 }
                 break;
-
             case "1":
-                //try-catch-dani-edit
-                try {
-                    System.out.print("Please enter  the Employee's ID:");
-                    employeeId = getAnswer("Integer");
-                } catch (Exception e) {
-                    System.out.println("Error!");
-                    i.reset();
-                }
-
-
+                System.out.print("Please enter  the Employee's ID:");
+                employeeId = getAnswer("Integer");
                 System.out.print("Please enter  the Employee's NAME:");
                 employeeName = getAnswer("String");
                 System.out.print("Please enter the Employee's AGE :");
@@ -65,7 +56,6 @@ public class Main {
                 showHasVehicleMenu();
                 showEmployeeTypeMenu();
                 break;
-
             case "2":
                 clearScreen();
                 System.out.println("List of current Employees:");
@@ -111,7 +101,6 @@ public class Main {
     }
 
     public static boolean checkColor(String test) {
-
         for (Vehicle.Color c : Vehicle.Color.values()) {
             if (c.name().equals(test)) {
                 return true;
@@ -125,7 +114,6 @@ public class Main {
         Integer answerInt = null;
         Float answerFloat = null;
         i = new Scanner(System.in);
-
         boolean bError = true;
         do {
             if (dataType == "Integer") {
@@ -314,10 +302,8 @@ public class Main {
                 vehicleType = "Car";
                 System.out.print("Please enter the car's MAKE :");
                 String carMake = getAnswer("String");
-
                 System.out.print("Please enter the car's COLOR " + allColors + " :");
                 String carColor = getAnswer("EnumColor");
-
                 System.out.print("Please enter the car's YEAR :");
                 String carYear = getAnswer("Integer");
                 System.out.print("Please enter the car's PLATE :");
@@ -332,10 +318,8 @@ public class Main {
                 vehicleType = "Motorcycle";
                 System.out.print("Please enter the motorcycle's MAKE :");
                 String motorcycleMake = getAnswer("String");
-
                 System.out.print("Please enter the motorcycle's COLOR " + allColors + " :");
                 String motorcycleColor = getAnswer("EnumColor");
-
                 System.out.print("Please enter the motorcycle's YEAR :");
                 String motorcycleYear = getAnswer("Integer");
                 System.out.print("Please enter the motorcycle's PLATE :");
@@ -367,8 +351,5 @@ public class Main {
         } catch (Exception e) {
                 System.err.println("Something went wrong!");
         }
-        /*
-        Employee emp = e.getEmployeeById(1);
-        System.out.println(emp.printMyData()); Case 3 get employee by id and Case 4 remove employee by id*/
     }
 }
