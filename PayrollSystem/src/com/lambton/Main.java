@@ -173,9 +173,9 @@ public class Main {
                 break;
             case "3":
                 System.out.println("Please enter the Employee's SALARY :");
-                salary = getAnswer("String");
+                salary = getAnswer("Float");
                 System.out.println("Please enter the Employee's BONUS :");
-                bonus = getAnswer("String");
+                bonus = getAnswer("Float");
                 if (hasVehicle == null) {
                     fullTime = new FullTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), null, Float.valueOf(salary), Float.valueOf(bonus));
                     fullTime.setAge(fullTime.calcBirthYear(Integer.valueOf(employeeAge)));
