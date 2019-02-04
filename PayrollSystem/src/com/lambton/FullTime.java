@@ -45,7 +45,7 @@ public class FullTime extends Employee {
 
     @Override
     public String printMyData() {
-        return super.printMyData() + "\nEmployee Type : Full Time" +
+        return super.printMyData() + "\nContract Type : Full Time" +
                 "\nSalary : " + salary +
                 "\nBonus : " + bonus +
                 "\nEarnings : " + this.calcEarnings();

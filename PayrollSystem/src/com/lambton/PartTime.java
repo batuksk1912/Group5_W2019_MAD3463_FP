@@ -40,7 +40,7 @@ public abstract class PartTime extends Employee {
 
     @Override
     public String printMyData() {
-        return super.printMyData() + "\nEmployee Type : Part Time" +
+        return super.printMyData() + "\nContract Type : Part Time" +
                 "\nRate : " + rate +
                 "\nHours Worked : " + hoursWorked;
     }

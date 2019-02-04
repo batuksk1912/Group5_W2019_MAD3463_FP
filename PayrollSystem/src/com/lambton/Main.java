@@ -12,29 +12,8 @@ public class Main {
     private static String employeeName;
     private static String employeeAge;
 
-    private static String carMake;
-    private static String carColor;
-    private static String carYear;
-    private static String carPlate;
-    private static String carSeats;
-    private static String carDoors;
-
-    private static String motorcycleMake;
-    private static String motorcycleColor;
-    private static String motorcycleYear;
-    private static String motorcyclePlate;
-    private static String motorcycleSideCar;
-    private static String motorcycleBrakeType;
-
-    private static String commission;
-    private static String fixedAmount;
     private static String rate;
     private static String hoursWorked;
-
-    private static String schoolName;
-
-    private static String salary;
-    private static String bonus;
 
     private static Intern intern;
     private static FixedBasedPartTime fixedBasedPartTime;
@@ -45,7 +24,6 @@ public class Main {
     private static Motorcycle motorcycle;
 
     private static EmployeeRepositories employeeRepositories = EmployeeRepositories.getInstance();
-
 
     public static void showMainMenu() {
         clearScreen();
@@ -66,7 +44,7 @@ public class Main {
                 break;
 
             case "1":
-
+                //try-catch-dani-edit
                 try {
                     System.out.println("Please enter  the Employee's ID:");
                     employeeId = getAnswer("Integer");
@@ -74,8 +52,6 @@ public class Main {
                     System.out.println("Error!");
                     i.reset();
                 }
-
-
                 System.out.println("Please enter  the Employee's NAME:");
                 employeeName = getAnswer("String");
                 System.out.println("Please enter the Employee's AGE :");
@@ -89,7 +65,7 @@ public class Main {
                 for (Employee employee : employeeRepositories.getAllEmployee()) {
                     System.out.println(employee.printMyData());
                 }
-                System.out.println("\n\n\nTotal Earnings : " + employeeRepositories.getAllEarnings());
+                System.out.println("\n\nTotal Earnings : " + employeeRepositories.getAllEarnings());
                 getAnswer("String");
                 showMainMenu();
                 break;
@@ -102,8 +78,8 @@ public class Main {
 
     private static String getAnswer(String dataType) {
         String answer = null;
-        Integer answerInt = null;
-        Float answerFloat = null;
+        Integer answerInt;
+        Float answerFloat;
         i = new Scanner(System.in);
 
         boolean bError = true;
@@ -154,28 +130,26 @@ public class Main {
                 break;
             case "2":
                 System.out.println("Please enter the Employee's SCHOOL NAME :");
-                schoolName = getAnswer("String");
-                Integer employeeIntegerId = Integer.valueOf(employeeId);
-                Integer employeeIntegerAge = Integer.valueOf(employeeAge);
+                String schoolName = getAnswer("String");
                 if (hasVehicle == null) {
-                    intern = new Intern(employeeIntegerId, employeeName, employeeIntegerAge, null, schoolName);
-                    intern.setAge(intern.calcBirthYear(employeeIntegerAge));
+                    intern = new Intern(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), null, schoolName);
+                    intern.setAge(intern.calcBirthYear(Integer.valueOf(employeeAge)));
                 } else {
                     if (vehicleType.equals("Car")) {
-                        intern = new Intern(employeeIntegerId, employeeName, employeeIntegerAge, car, schoolName);
-                        intern.setAge(intern.calcBirthYear(employeeIntegerAge));
+                        intern = new Intern(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), car, schoolName);
+                        intern.setAge(intern.calcBirthYear(Integer.valueOf(employeeAge)));
                     } else {
-                        intern = new Intern(employeeIntegerId, employeeName, employeeIntegerAge, motorcycle, schoolName);
-                        intern.setAge(intern.calcBirthYear(employeeIntegerAge));
+                        intern = new Intern(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), motorcycle, schoolName);
+                        intern.setAge(intern.calcBirthYear(Integer.valueOf(employeeAge)));
                     }
                 }
                 employeeRepositories.addOrder(intern);
                 break;
             case "3":
                 System.out.println("Please enter the Employee's SALARY :");
-                salary = getAnswer("String");
+                String salary = getAnswer("Float");
                 System.out.println("Please enter the Employee's BONUS :");
-                bonus = getAnswer("String");
+                String bonus = getAnswer("Float");
                 if (hasVehicle == null) {
                     fullTime = new FullTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), null, Float.valueOf(salary), Float.valueOf(bonus));
                     fullTime.setAge(fullTime.calcBirthYear(Integer.valueOf(employeeAge)));
@@ -208,10 +182,9 @@ public class Main {
         switch (option) {
             case "1":
                 System.out.println("Please enter the Employee's COMMISSION :");
-                commission = getAnswer("Float");
+                String commission = getAnswer("Float");
                 Float commissionRate = Float.valueOf(commission);
                 Float totalCommission = ((Float.valueOf(rate) * Float.valueOf(hoursWorked)) * commissionRate) / 100.00f;
-
                 if (hasVehicle == null) {
                     commissionBasedPartTime = new CommissionBasedPartTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), null, Float.valueOf(rate), Float.valueOf(hoursWorked), totalCommission);
                     commissionBasedPartTime.setAge(commissionBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
@@ -228,7 +201,7 @@ public class Main {
                 break;
             case "2":
                 System.out.println("Please enter the Employee's FIXED AMOUNT :");
-                fixedAmount = getAnswer("Float");
+                String fixedAmount = getAnswer("Float");
                 if (hasVehicle == null) {
                     fixedBasedPartTime = new FixedBasedPartTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), null, Float.valueOf(rate), Float.valueOf(hoursWorked), Float.valueOf(fixedAmount));
                     fixedBasedPartTime.setAge(fixedBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
@@ -282,38 +255,34 @@ public class Main {
             case "1":
                 vehicleType = "Car";
                 System.out.println("Please enter the car's MAKE :");
-                carMake = getAnswer("String");
+                String carMake = getAnswer("String");
                 System.out.println("Please enter the car's COLOR :");
-                carColor = getAnswer("String");
+                String carColor = getAnswer("String");
                 System.out.println("Please enter the car's YEAR :");
-                carYear = getAnswer("Integer");
+                String carYear = getAnswer("Integer");
                 System.out.println("Please enter the car's PLATE :");
-                carPlate = getAnswer("String");
+                String carPlate = getAnswer("String");
                 System.out.println("Please enter the car's SEAT NUMBER :");
-                carSeats = getAnswer("Integer");
+                String carSeats = getAnswer("Integer");
                 System.out.println("Please enter the car's DOOR NUMBER :");
-                carDoors = getAnswer("Integer");
-                Integer carYearInteger = Integer.valueOf(carYear);
-                Integer carSeatsInteger = Integer.valueOf(carSeats);
-                Integer carDoorsInteger = Integer.valueOf(carDoors);
-                car = new Car(carMake, carPlate, carYearInteger, Car.Color.valueOf(carColor.toUpperCase()), carSeatsInteger, carDoorsInteger);
+                String carDoors = getAnswer("Integer");
+                car = new Car(carMake, carPlate, Integer.valueOf(carYear), Car.Color.valueOf(carColor.toUpperCase()), Integer.valueOf(carSeats), Integer.valueOf(carDoors));
                 break;
             case "2":
                 vehicleType = "Motorcycle";
                 System.out.println("Please enter the motorcycle's MAKE :");
-                motorcycleMake = getAnswer("String");
+                String motorcycleMake = getAnswer("String");
                 System.out.println("Please enter the motorcycle's COLOR :");
-                motorcycleColor = getAnswer("String");
+                String motorcycleColor = getAnswer("String");
                 System.out.println("Please enter the motorcycle's YEAR :");
-                motorcycleYear = getAnswer("Integer");
+                String motorcycleYear = getAnswer("Integer");
                 System.out.println("Please enter the motorcycle's PLATE :");
-                motorcyclePlate = getAnswer("String");
+                String motorcyclePlate = getAnswer("String");
                 System.out.println("Please enter the motorcycle's SIDE CAR INFORMATION :");
-                motorcycleSideCar = getAnswer("String");
+                String motorcycleSideCar = getAnswer("String");
                 System.out.println("Please enter the motorcycle's BREAK TYPE :");
-                motorcycleBrakeType = getAnswer("String");
-                Integer motorcycleYearInteger = Integer.valueOf(motorcycleYear);
-                motorcycle = new Motorcycle(motorcycleMake, motorcyclePlate, motorcycleYearInteger, Motorcycle.Color.valueOf(motorcycleColor.toUpperCase()), motorcycleSideCar, motorcycleBrakeType);
+                String motorcycleBrakeType = getAnswer("String");
+                motorcycle = new Motorcycle(motorcycleMake, motorcyclePlate, Integer.valueOf(motorcycleYear), Motorcycle.Color.valueOf(motorcycleColor.toUpperCase()), motorcycleSideCar, motorcycleBrakeType);
                 break;
             default:
                 System.out.println("Invalid option!");
@@ -331,24 +300,14 @@ public class Main {
     public static void main(String[] args) {
 
         while (true) {
-            //try {
+            try {
             showMainMenu();
-            //} catch (Exception e) {
-            //System.out.println("Something went wrong!");
-            //}
+            } catch (Exception e) {
+                System.out.println("Something went wrong!");
+            }
         }
-
-        //Intern in = new Intern(1, "Baturay", 25, null, "Lambton College");
-        //in.setAge(in.calcBirthYear(25));
-
-        /*e.addOrder(in);
-
+        /*
         Employee emp = e.getEmployeeById(1);
-
-        System.out.println(emp.printMyData());
-
-        for (Employee em : e.getAllEmployee()) {
-            System.out.println(em.printMyData());
-        }*/
+        System.out.println(emp.printMyData()); Case 3 get employee by id and Case 4 remove employee by id*/
     }
 }

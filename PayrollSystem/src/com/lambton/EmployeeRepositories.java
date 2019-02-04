@@ -31,10 +31,6 @@ public class EmployeeRepositories {
         return null;
     }
 
-    public void removeOrder(Employee e) {
-        arr.remove(e);
-    }
-
     public void removeOrderById(Integer employeeId) {
         for (Employee e : arr) {
             if (e.getId().equals(employeeId)) {

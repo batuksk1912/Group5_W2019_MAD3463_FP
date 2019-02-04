@@ -81,7 +81,7 @@ public abstract class Employee implements IPrintable {
     @Override
     public String printMyData() {
         return "\n---Employee Records---\n\n" +
-                "Employer ID : " + id +
+                "Employee ID : " + id +
                 "\nName : " + name + '\n' +
                 "Year of Birth : " + age +
                 "\nVehicle Status : " + vehicleChecker() + "\n" + (vehicle != null ? vehicle.printMyData() : "No Vehicle Information");
