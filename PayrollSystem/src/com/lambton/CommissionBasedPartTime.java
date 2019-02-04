@@ -33,6 +33,7 @@ public class CommissionBasedPartTime extends PartTime {
     @Override
     public String printMyData() {
         return super.printMyData() + "\nCommission Based Part Time" +
-                "\nCommission : " + commission;
+                "\nCommission : " + commission +
+                "\nEarnings : " + commissionPercalcEarnings();
     }
 }

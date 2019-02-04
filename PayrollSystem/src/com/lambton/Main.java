@@ -31,6 +31,8 @@ public class Main {
 
     private static String commission;
     private static String fixedAmount;
+    private static String rate;
+    private static String hoursWorked;
 
     private static String schoolName;
 
@@ -49,7 +51,7 @@ public class Main {
 
 
     public static void showMainMenu() {
-        clearScreen();
+        //clearScreen();
         System.out.println("Welcome to Payroll System. Please choose an option below:");
         System.out.println("1. Add a new Employee");
         System.out.println("2. Print current Employees list");
@@ -99,6 +101,7 @@ public class Main {
         return answer.toLowerCase();
     }
 
+    @SuppressWarnings("Duplicates")
     public static void showEmployeeTypeMenu() {
         clearScreen();
         System.out.println("Enter the Employee's CONTRACT TYPE:");
@@ -109,9 +112,12 @@ public class Main {
         String option = getAnswer();
         switch (option) {
             case "1":
+                System.out.println("Please enter the Employee's RATE :");
+                rate = getAnswer();
+                System.out.println("Please enter the Employee's HOURS WORKED :");
+                hoursWorked = getAnswer();
                 showPartTimeTypeMenu();
                 break;
-
             case "2":
                 System.out.println("Please enter the Employee's SCHOOL NAME :");
                 schoolName = getAnswer();
@@ -136,6 +142,19 @@ public class Main {
                 salary = getAnswer();
                 System.out.println("Please enter the Employee's BONUS :");
                 bonus = getAnswer();
+                if (hasVehicle == null) {
+                    fullTime = new FullTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), null, Float.valueOf(salary), Float.valueOf(bonus));
+                    fullTime.setAge(fullTime.calcBirthYear(Integer.valueOf(employeeAge)));
+                } else {
+                    if (vehicleType.equals("Car")) {
+                        fullTime = new FullTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), car, Float.valueOf(salary), Float.valueOf(bonus));
+                        fullTime.setAge(fullTime.calcBirthYear(Integer.valueOf(employeeAge)));
+                    } else {
+                        fullTime = new FullTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), motorcycle, Float.valueOf(salary), Float.valueOf(bonus));
+                        fullTime.setAge(fullTime.calcBirthYear(Integer.valueOf(employeeAge)));
+                    }
+                }
+                employeeRepositories.addOrder(fullTime);
                 break;
             default:
                 System.out.println("Invalid option!");
@@ -144,6 +163,7 @@ public class Main {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     public static void showPartTimeTypeMenu() {
         clearScreen();
         System.out.println("Enter the Employee's Part-time TYPE:");
@@ -155,11 +175,39 @@ public class Main {
             case "1":
                 System.out.println("Please enter the Employee's COMMISSION :");
                 commission = getAnswer();
+                Integer employeeIntegerId = Integer.valueOf(employeeId);
+                Integer employeeIntegerAge = Integer.valueOf(employeeAge);
+                Float commissionFloat = Float.valueOf(commission);
+                if (hasVehicle == null) {
+                    commissionBasedPartTime = new CommissionBasedPartTime(employeeIntegerId, employeeName, employeeIntegerAge, null, Float.valueOf(rate), Float.valueOf(hoursWorked), commissionFloat);
+                    commissionBasedPartTime.setAge(commissionBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
+                } else {
+                    if (vehicleType.equals("Car")) {
+                        commissionBasedPartTime = new CommissionBasedPartTime(employeeIntegerId, employeeName, employeeIntegerAge, car, Float.valueOf(rate), Float.valueOf(hoursWorked), commissionFloat);
+                        commissionBasedPartTime.setAge(commissionBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
+                    } else {
+                        commissionBasedPartTime = new CommissionBasedPartTime(employeeIntegerId, employeeName, employeeIntegerAge, motorcycle, Float.valueOf(rate), Float.valueOf(hoursWorked), commissionFloat);
+                        commissionBasedPartTime.setAge(commissionBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
+                    }
+                }
+                employeeRepositories.addOrder(commissionBasedPartTime);
                 break;
-
             case "2":
                 System.out.println("Please enter the Employee's FIXED AMOUNT :");
                 fixedAmount = getAnswer();
+                if (hasVehicle == null) {
+                    fixedBasedPartTime = new FixedBasedPartTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), null, Float.valueOf(rate), Float.valueOf(hoursWorked), Float.valueOf(fixedAmount));
+                    fixedBasedPartTime.setAge(fixedBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
+                } else {
+                    if (vehicleType.equals("Car")) {
+                        fixedBasedPartTime = new FixedBasedPartTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), car, Float.valueOf(rate), Float.valueOf(hoursWorked), Float.valueOf(fixedAmount));
+                        fixedBasedPartTime.setAge(fixedBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
+                    } else {
+                        fixedBasedPartTime = new FixedBasedPartTime(Integer.valueOf(employeeId), employeeName, Integer.valueOf(employeeAge), motorcycle, Float.valueOf(rate), Float.valueOf(hoursWorked), Float.valueOf(fixedAmount));
+                        fixedBasedPartTime.setAge(fixedBasedPartTime.calcBirthYear(Integer.valueOf(employeeAge)));
+                    }
+                }
+                employeeRepositories.addOrder(fixedBasedPartTime);
                 break;
             default:
                 System.out.println("Invalid option!");
@@ -249,7 +297,11 @@ public class Main {
     public static void main(String[] args) {
 
         while (true) {
+            //try {
             showMainMenu();
+            //} catch (Exception e) {
+            //System.out.println("Something went wrong!");
+            //}
         }
 
         //Intern in = new Intern(1, "Baturay", 25, null, "Lambton College");
