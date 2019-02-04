@@ -28,7 +28,7 @@ public class Intern extends Employee {
 
     @Override
     public String printMyData() {
-        return super.printMyData() + "\nEmployee Type : Intern" +
+        return super.printMyData() + "\nContract Type : Intern" +
                 "\nSchool Name : " + schoolName +
                 "\nEarnings : " + calcEarnings();
     }
