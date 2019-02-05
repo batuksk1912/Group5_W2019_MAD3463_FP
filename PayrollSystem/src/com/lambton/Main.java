@@ -75,7 +75,7 @@ public class Main {
                     System.out.println(employee.printMyData());
                     getAnswer("String");
                 } else {
-                    System.out.println("No Record found.");
+                    System.err.println("No Record found.");
                     getAnswer("String");
                 }
                 break;
@@ -85,10 +85,10 @@ public class Main {
                 employee = employeeRepositories.getEmployeeById(Integer.valueOf(deleteId));
                 if (employee != null) {
                     employeeRepositories.removeEmployeeById(Integer.valueOf(deleteId));
-                    System.out.println("Employee record deleted successfully.");
+                    System.err.println("Employee record deleted successfully.");
                     getAnswer("String");
                 } else {
-                    System.out.println("No Record found.");
+                    System.err.println("No Record found.");
                     getAnswer("String");
                 }
                 break;
@@ -292,6 +292,7 @@ public class Main {
         String option = getAnswer("Integer");
         switch (option) {
             case "1":
+                hasVehicle = "YES";
                 showVehicleTypeMenu();
                 break;
             case "2":
