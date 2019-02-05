@@ -48,7 +48,7 @@ public class Main {
                 break;
             case "1":
                 System.out.print("Please enter  the Employee's ID:");
-                employeeId = getAnswer("Integer");
+                employeeId = getAnswer("uniqueId");
                 System.out.print("Please enter  the Employee's NAME:");
                 employeeName = getAnswer("String");
                 System.out.print("Please enter the Employee's AGE :");
@@ -142,6 +142,21 @@ public class Main {
                         bError = false;
                     } else {
                         throw new Exception("Invalid color! Try again!");
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error! Please enter a valid " + dataType + "!");
+                    i.reset();
+                }
+            } else if (dataType == "uniqueId") {
+                try {
+                    answerInt = Integer.parseInt(i.nextLine());
+                    answer = answerInt.toString();
+
+                    if (employeeRepositories.getEmployeeById(answerInt) == null) {
+                        bError = false;
+                    } else {
+                        bError = true;
+                        throw new Exception("ID must be unique.");
                     }
                 } catch (Exception e) {
                     System.err.println("Error! Please enter a valid " + dataType + "!");
@@ -345,11 +360,11 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-        while (true) {
-            showMainMenu();
-        }
+            while (true) {
+                showMainMenu();
+            }
         } catch (Exception e) {
-                System.err.println("Something went wrong!");
+            System.err.println("Something went wrong!");
         }
     }
 }
